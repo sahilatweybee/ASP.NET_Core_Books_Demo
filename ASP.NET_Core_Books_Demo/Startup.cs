@@ -16,6 +16,7 @@ namespace ASP.NET_Core_Books_Demo
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,11 +31,36 @@ namespace ASP.NET_Core_Books_Demo
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                endpoints.MapDefaultControllerRoute();
+                
+                /*if (env.IsProduction())
                 {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                    endpoints.Map("/", async context =>
+                    {
+                        await context.Response.WriteAsync("Hello From Production\n");
+                    });
+                }
+                else if(env.IsDevelopment())
+                {
+                    endpoints.Map("/", async context =>
+                    {
+                        await context.Response.WriteAsync("Hello World!\n");
+                    });
+                }*/
             });
+
+            /*app.Use(async (context, next) => 
+            {
+                await context.Response.WriteAsync("Hello 1st middleware\n");
+                await next();
+                await context.Response.WriteAsync("Hello 1st middleware response\n");
+            });
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello 2nd middleware\n");
+                await next();
+                await context.Response.WriteAsync("Hello 2nd middleware response\n");
+            });*/
         }
     }
 }
