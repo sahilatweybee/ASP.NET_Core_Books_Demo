@@ -8,9 +8,15 @@ namespace ASP.NET_Core_Books_Demo.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        public ViewResult Index()
         {
-            return "BookStoreApp";
+            //return View("~/Mypage.cshtml");
+            return View();
+        }
+
+        public ViewResult About()
+        {
+            return View();
         }
     }
 }

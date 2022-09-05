@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/Style.css" rel="stylesheet" />
+</head>
+<body class="container">
+    <img src="~/images/sample_19.png" class="logo" alt="Logo" />
+    @*<img src="~/My_Images/sample_36.png" class="logo" alt="Image"/>*@
+    <h1 class="h1">Welcome To BookStoreApp</h1>
+    @*
+        <hr />
+    @{
+        int a = 15;
+        int b = 20;
+        int c = a + b;
+    }
+    <h2>Multiline: @c</h2>
+
+    @if (a >= 5)
+    {
+        a++;
+        <h3>Hii value is @a</h3>
+    }
+    else
+    {
+        <h3>The Value is @a</h3>
+    }
+
+    @switch (a)
+    {
+        case 1:<h4>I am 1</h4>
+            break;
+        case 2:<h4>I am 2</h4>
+            break;
+        case 3:<h4>I am 3</h4>
+            break;
+        case 4:<h4>I am 4</h4>
+            break;
+        case 5:<h4>I am 5</h4>
+            break;
+        case 6:<h4>I am 6</h4>
+            break;
+        default: <h4>I am Default a=@a </h4>
+        break;
+}
+
+    @{
+        var list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    }
+    @foreach (var itm in list)
+    {
+        <h4>@itm</h4>
+    }
+
+    <footer>
+        <label>Date: @DateTime.Now.ToLongDateString()</label>
+    </footer>
+        *@
+</body>
+</html>
