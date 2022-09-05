@@ -1,69 +1,60 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1>Welcome to BookStore</h1>
+        <p class="lead text-muted">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            <a href="#" class="btn btn-primary my-2">Search Books</a>
+        </p>
+    </div>
+</section>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/Style.css" rel="stylesheet" />
-</head>
-<body class="container">
-    <img src="~/images/sample_19.png" class="logo" alt="Logo" />
-    @*<img src="~/My_Images/sample_36.png" class="logo" alt="Image"/>*@
-    <h1 class="h1">Welcome To BookStoreApp</h1>
-    @*
-        <hr />
-    @{
-        int a = 15;
-        int b = 20;
-        int c = a + b;
-    }
-    <h2>Multiline: @c</h2>
-
-    @if (a >= 5)
-    {
-        a++;
-        <h3>Hii value is @a</h3>
-    }
-    else
-    {
-        <h3>The Value is @a</h3>
-    }
-
-    @switch (a)
-    {
-        case 1:<h4>I am 1</h4>
-            break;
-        case 2:<h4>I am 2</h4>
-            break;
-        case 3:<h4>I am 3</h4>
-            break;
-        case 4:<h4>I am 4</h4>
-            break;
-        case 5:<h4>I am 5</h4>
-            break;
-        case 6:<h4>I am 6</h4>
-            break;
-        default: <h4>I am Default a=@a </h4>
-        break;
-}
-
-    @{
-        var list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    }
-    @foreach (var itm in list)
-    {
-        <h4>@itm</h4>
-    }
-
-    <footer>
-        <label>Date: @DateTime.Now.ToLongDateString()</label>
-    </footer>
-        *@
-</body>
-</html>
+<div class="py-5 bg-light">
+    <div class="container">
+        <h3 class="h3">Top Books</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <svg class="bd-placeholder-img bg-black card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"></svg>
+                <div class="card-body">
+                    <p class="card-text">This section will be used to display short Discription of The books</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-sm btn-outline-secondary">View Details</a>
+                        </div>
+                        <small class="text-muted">Author Name</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <svg class="bd-placeholder-img bg-black card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"></svg>
+                <div class="card-body">
+                    <p class="card-text">This section will be used to display short Discription of The books</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-sm btn-outline-secondary">View Details</a>
+                        </div>
+                        <small class="text-muted">Author Name</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <svg class="bd-placeholder-img bg-black card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"></svg>
+                <div class="card-body">
+                    <p class="card-text">This section will be used to display short Discription of The books</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-sm btn-outline-secondary">View Details</a>
+                        </div>
+                        <small class="text-muted">Author Name</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
