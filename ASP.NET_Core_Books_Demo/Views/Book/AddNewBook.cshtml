@@ -1,0 +1,65 @@
+﻿@model BookModel
+@{ 
+    ViewData["Title"] = "AddNewBook";
+}
+
+<div class="container">
+    <h3 class="display-4">Add New Book</h3>
+    @if (ViewBag.IsSuccess == true) 
+     { 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Book Added Succesfully!</strong> <a asp-action="GetBook" asp-controller="Book" asp-route-id="@ViewBag.BookId">Click Here</a> to View Details
+            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+     }
+<form asp-action="AddNewBook" asp-controller="Book" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" name="Name" value="" class="form-control my-1" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Language" class="control-label"></label>
+        <select asp-for="Language" class="form-select">
+            <option value="">--Select Language--</option>
+            <option value="English" selected>English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Dutch">Dutch</option>
+            <option value="Spanish">Spanish</option>
+            <option value="French">French</option>
+            <option value="Italian">Italian</option>
+            <option value="Russian">Russian</option>
+            <option value="Korean">Korean</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Arabic">Arabic</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Language"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" name="Author" value="" class="form-control my-1" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" name="Description" value="" class="form-control my-1"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TotalPages" class="control-label"></label>
+        <input asp-for="TotalPages" name="TotalPages" value="" class="form-control my-1" />
+        <span asp-validation-for="TotalPages" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add Book" class="btn btn-primary mt-2" />
+    </div>
+</form>
+</div>

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ASP.NET_Core_Books_Demo
+namespace ASPNET_Core_Books_Demo
 {
     public class Program
     {
