@@ -49,6 +49,10 @@
                 </div>
             </nav>
         </header>
+        @*<a href="mailto:sp296435@gmail.com">sp296435@gmail.com</a>
+        <custom-email></custom-email>
+        <big>Hello</big> <p big>Hii</p>*@
+
         @RenderBody()
     </main>
     <footer class="border-top card-footer text-muted text-center">
@@ -58,21 +62,25 @@
     </footer>
     <environment include="Development">
         <script src="~/lib/jquery/jquery.js"></script>
-        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/jquery-validate/jquery.validate.js"></script>
+        <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
     </environment>
 
     <environment exclude="Development">
         <script src="~/lib/jquery/jquery.min.js"></script>
-        <link rel="stylesheet"
-              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-              asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only"
-              asp-fallback-test-property="position"
-              asp-fallback-test-value="absolute"
-              integrity="" 
-              crossorigin="anonymous">
+        <script src="~/jquery-validate/jquery.validate.min.js"></script>
+        <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
     </environment>
-    
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only"
+          asp-fallback-test-property="position"
+          asp-fallback-test-value="absolute"
+          integrity=""
+          crossorigin="anonymous">
     @RenderSection("scripts", required: false)
 </body>
 </html>

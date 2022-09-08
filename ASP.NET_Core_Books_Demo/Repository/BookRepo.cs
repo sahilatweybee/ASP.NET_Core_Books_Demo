@@ -23,10 +23,19 @@ namespace ASPNET_Core_Books_Demo.Repository
                 CreatedOn = DateTime.UtcNow,
                 Description = model.Description,
                 Name = model.Name,
-                Language = model.Language,
+                LanguageId = model.LanguageId,
+                CoverImgPathUrl =model.CoverImgUrl,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
                 UpdatedOn = DateTime.UtcNow
             };
+            foreach (var file in model.Gallery)
+            {
+                newBook.Book_Gallery.Add(new BookGallery()
+                {
+                    Name = file.Name,
+                    URL = file.URL,
+                });
+            }
             await _context.Book_Tbl.AddAsync(newBook);
             await _context.SaveChangesAsync();
             
@@ -34,61 +43,44 @@ namespace ASPNET_Core_Books_Demo.Repository
         }
         public async Task<List<BookModel>> GetAllBooks()
         {
-            var data = new List<BookModel>();
-            var allbooks = await _context.Book_Tbl.ToListAsync();
-            if(allbooks?.Any() == true){
-                foreach (var itm in allbooks)
-                {
-                    data.Add(new BookModel() { 
-                        Author = itm.Author,
-                        Name = itm.Name,
-                        Description = itm.Description,
-                        Category = itm.Category,
-                        Id = itm.Id,
-                        Language = itm.Language,
-                        TotalPages = itm.TotalPages
-                    });
-                }
-            }
-            return data;
+            // var data = new List<BookModel>();
+            var books = await _context.Book_Tbl.Select(x => new BookModel()
+            {
+                Author = x.Author,
+                Name = x.Name,
+                Description = x.Description,
+                Category = x.Category,
+                Id = x.Id,
+                Language = x.Language.Name,
+                LanguageId = x.LanguageId,
+                TotalPages = x.TotalPages,
+                CoverImgUrl = x.CoverImgPathUrl
+            }).ToListAsync();
+
+            return books;
         }
 
         public async Task<BookModel> GetBookById(int Id)
         {
             // await _context.Book_Tbl.Where(x => x.Id == Id).FirstOrDefault();
-            var book = await _context.Book_Tbl.FindAsync(Id);
-            if (book != null)
-            {
-                var BookDetails = new BookModel()
+            return await _context.Book_Tbl.Where(x => x.Id == Id)
+                .Select(book => new BookModel()
                 {
-                    Author = book.Author,
-                    Name = book.Name,
-                    Description = book.Description,
-                    Category = book.Category,
-                    Id = book.Id,
-                    Language = book.Language,
-                    TotalPages = book.TotalPages
-                };
-            return BookDetails;
-            }
-            return null;
+                Author = book.Author,
+                Name = book.Name,
+                CoverImgUrl = book.CoverImgPathUrl,
+                Description = book.Description,
+                Category = book.Category,
+                Id = book.Id,
+                Language = book.Language.Name,
+                LanguageId = book.LanguageId,
+                TotalPages = book.TotalPages
+                }).FirstOrDefaultAsync();
         }
 
         public List<BookModel> SearchBooks(string tital, string authorName)
         {
-            return DataSource().Where(x => x.Name.Contains(tital) && x.Author.Contains(authorName)).ToList();
-        }
-        
-        private List<BookModel> DataSource()
-        {
-            return new List<BookModel>()
-            {
-                new BookModel(){Id=3, Name="Python", Author="pqr", Description="Description of Python book.", Category="Programming", Language="Russian", TotalPages=839},
-                new BookModel(){Id=4, Name="PHP", Author="abc", Description="Description of PHP book.", Category="Programming", Language="Spanish", TotalPages=790 },
-                new BookModel(){Id=5, Name="C++", Author="xyz", Description="Description of C++ book.", Category="Programming", Language="French", TotalPages=1150},
-                new BookModel(){Id=6, Name="AWS", Author="xyz", Description="Description of AWS book.", Category="Service", Language="English", TotalPages=303},
-                new BookModel(){Id=7, Name="Go Language", Author="xyz", Description="Description of Go Language book.", Category="Programming", Language="German", TotalPages=209},
-            };
+            return null;
         }
     }
 }

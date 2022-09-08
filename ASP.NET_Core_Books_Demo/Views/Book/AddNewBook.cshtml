@@ -1,65 +1,111 @@
-﻿@model BookModel
-@{ 
+﻿@using ASPNET_Core_Books_Demo.Enums;
+@model BookModel
+@{
     ViewData["Title"] = "AddNewBook";
 }
 
 <div class="container">
     <h3 class="display-4">Add New Book</h3>
-    @if (ViewBag.IsSuccess == true) 
-     { 
+
+    @if (ViewBag.IsSuccess == true)
+    {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Book Added Succesfully!</strong> <a asp-action="GetBook" asp-controller="Book" asp-route-id="@ViewBag.BookId">Click Here</a> to View Details
             <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-     }
-<form asp-action="AddNewBook" asp-controller="Book" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    }
+<form asp-action="AddNewBook"
+      enctype="multipart/form-data"
+      asp-controller="Book"
+      method="post"
+      data-ajax-success="OnSuccess"
+      data-ajax="true"
+      data-ajax-complete="OnComplete"
+      data-ajax-loading="#Loader">
 
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" name="Name" value="" class="form-control my-1" />
-        <span class="text-danger" asp-validation-for="Name"></span>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Language" class="control-label"></label>
-        <select asp-for="Language" class="form-select">
-            <option value="">--Select Language--</option>
-            <option value="English" selected>English</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Dutch">Dutch</option>
-            <option value="Spanish">Spanish</option>
-            <option value="French">French</option>
-            <option value="Italian">Italian</option>
-            <option value="Russian">Russian</option>
-            <option value="Korean">Korean</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Arabic">Arabic</option>
-        </select>
-        <span class="text-danger" asp-validation-for="Language"></span>
+    <div class="form-group row">
+        <label asp-for="Name" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Name" name="Name" value="" class=" form-control my-2" />
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Author" class="control-label"></label>
-        <input asp-for="Author" name="Author" value="" class="form-control my-1" />
-        <span asp-validation-for="Author" class="text-danger"></span>
+    <div class="form-group row">
+        <label asp-for="LanguageId" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <select asp-for="LanguageId" class="form-select" asp-items="ViewBag.languages">
+                <option value="0">--Select Language--</option>
+            </select>
+        </div>
+        <span class="text-danger" asp-validation-for="LanguageId"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" name="Description" value="" class="form-control my-1"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="form-group row">
+        <label asp-for="Author" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Author" name="Author" value="" class=" form-control my-2" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="TotalPages" class="control-label"></label>
-        <input asp-for="TotalPages" name="TotalPages" value="" class="form-control my-1" />
-        <span asp-validation-for="TotalPages" class="text-danger"></span>
+    <div class="form-group row">
+        <label asp-for="Description" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <textarea asp-for="Description" name="Description" value="" class=" form-control my-2"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <input type="submit" value="Add Book" class="btn btn-primary mt-2" />
+    <div class="form-group row">
+        <label asp-for="TotalPages" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="TotalPages" name="TotalPages" value="" class=" form-control my-2" />
+            <span asp-validation-for="TotalPages" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="CoverImg" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="CoverImg" class="custom-file-input" id="validatedCustomFile" required>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+            <span asp-validation-for="CoverImg" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="GalleryFiles" class="col-sm-2 my-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="GalleryFiles" class="custom-file-input" id="validatedCustomFile" required>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+            <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group text-center row">
+        <input type="submit" value="Add Book" class="btn btn-primary mt-5" />
     </div>
 </form>
+    <div class="text-center">
+        <div class="spinner-border" id="Loader" role="status" style="display: none;">
+            <span class="sr-only visually-hidden">Loading...</span>
+        </div>
+    </div>
 </div>
+
+@section scripts{ 
+@*<script>
+
+    function OnComplete() {
+        alert("Action Completed!!!");
+    }
+    function OnSuccess() {
+        alert("Book Added");
+    }
+</script>*@
+}

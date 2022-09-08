@@ -27,6 +27,7 @@ namespace ASPNET_Core_Books_Demo
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
             services.AddScoped<BookRepo, BookRepo>();
+            services.AddScoped<LanguageRepo, LanguageRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

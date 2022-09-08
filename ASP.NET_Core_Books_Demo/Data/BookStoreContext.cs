@@ -15,5 +15,7 @@ namespace ASPNET_Core_Books_Demo.Data
         }
 
         public DbSet<Books> Book_Tbl { get; set; }
+        public DbSet<Language> Language_Tbl { get; set; }
+        public DbSet<BookGallery> Gallery_Tbl { get; set; }
     }
 }

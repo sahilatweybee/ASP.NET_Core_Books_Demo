@@ -10,7 +10,7 @@
         @foreach (var book in Model)
         {
             <div class="col-md-4">
-                <svg class="bd-placeholder-img bg-black card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"></svg>
+                <img src="@book.CoverImgUrl" class="img-thumbnail" />
                 <div class="card-body">
                     <h3 class="card-ti tle">@book.Name</h3>
                     <p class="card-text">@book.Description</p>
