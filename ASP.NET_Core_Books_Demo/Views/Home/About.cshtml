@@ -1,2 +1,9 @@
-﻿
+﻿@inject ASPNET_Core_Books_Demo.Repository.IBookRepository _bookRepository
 <h1>About Us</h1>
+
+<h3 class="h3">All Books</h3>
+
+@foreach (var item in await _bookRepository.GetAllBooks())
+{
+    <p>@item.Name</p>
+}

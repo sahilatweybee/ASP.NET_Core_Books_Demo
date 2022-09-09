@@ -27,12 +27,16 @@ namespace ASPNET_Core_Books_Demo.Models
         [Required(ErrorMessage = "* Invalid Number of pages!")]
         [Display(Name = "Total Pages of the Book")]
         public int? TotalPages { get; set; }
-        [Display(Name="Cover Photo of the Book.")]
+        [Display(Name="Cover Photo of the Book")]
         [Required(ErrorMessage ="* Cover Photo is Required and must be under __kb Size")]
         public IFormFile CoverImg { get; set; }
         public List<IFormFile> GalleryFiles { get; set; }
         public string CoverImgUrl { get; set; }
-
         public List<GalleryModel> Gallery { get; set; }
+        [Display(Name = "Upload Book in PDF format")]
+        [Required(ErrorMessage ="* Pdf File is Required")]
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfUrl { get; set; }
+
     }
 }

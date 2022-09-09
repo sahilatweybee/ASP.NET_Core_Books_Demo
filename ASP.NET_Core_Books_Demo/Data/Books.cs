@@ -18,7 +18,7 @@ namespace ASPNET_Core_Books_Demo.Data
         public DateTime? UpdatedOn { get; set; }
         public string CoverImgPathUrl { get; set; }
         public Language Language { get; set; }
-
-        public ICollection<BookGallery> Book_Gallery { get; set; }
+        public ICollection<BookGallery> Book_Gallery { get; set; } 
+        public string BookPdfUrl { get; set; }
     }
 }

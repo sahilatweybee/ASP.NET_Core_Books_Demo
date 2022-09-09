@@ -12,16 +12,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace ASPNET_Core_Books_Demo.Controllers
 {
+    [Route("[controller]/[action]")] 
     public class BookController : Controller
     {
-        private readonly BookRepo _bookRepo = null;
-        private readonly LanguageRepo _langRepo = null;
+        private readonly IBookRepository _bookRepo = null;
+        private readonly ILanguageRepository _langRepo = null;
         private readonly IWebHostEnvironment _WebHostEnv = null;
         [ViewData]
         public string Title { get; set; }
 
-        public BookController(BookRepo bookrepo, 
-            LanguageRepo languageRepo,
+        public BookController(IBookRepository bookrepo, 
+            ILanguageRepository languageRepo,
             IWebHostEnvironment WebHostEnv)
         {
             _bookRepo = bookrepo;
@@ -33,7 +34,7 @@ namespace ASPNET_Core_Books_Demo.Controllers
         {
             return View();
         }*/
-
+        [Route("~/All-Books/")]
         public async Task<ViewResult> GetAllBooks()
         {
             Title = "All Books";
@@ -41,7 +42,7 @@ namespace ASPNET_Core_Books_Demo.Controllers
 
             return View(data);
         }
-        [Route("book-details/", Name= "BookDetailsRoute")]
+        [HttpGet("~/book-details/{Id:int:min(1)}", Name= "BookDetailsRoute")]
         public async Task<ViewResult> GetBook(int Id)
         {
             var book = await _bookRepo.GetBookById(Id);
@@ -54,24 +55,34 @@ namespace ASPNET_Core_Books_Demo.Controllers
             return null;
         }
 
-        public async Task<ViewResult> AddNewBook(bool IsSuccess=false, int bookId = 0)
+        [Route("~/AddNewBook/")]
+        public ViewResult AddNewBook(bool IsSuccess=false, int bookId = 0)
         {
-            ViewBag.languages = new SelectList(await _langRepo.GetLanguages(), "Id", "Name");
             ViewBag.BookId = bookId;
             ViewBag.IsSuccess = IsSuccess;
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("~/AddNewBook/")]
         public async Task<IActionResult> AddNewBook(BookModel bookModl) 
         {
             if (ModelState.IsValid)
             {
-                if(bookModl.CoverImg != null)
+                //-------------File Upload--------------------------//
+                if (bookModl.BookPdf != null)
+                {
+                    string folder = "Books/Pdf/";
+                    bookModl.BookPdfUrl = await UploadFile(folder, bookModl.BookPdf);
+                }
+
+                //-------------Cover Image Upload--------------------//
+                if (bookModl.CoverImg != null)
                 {
                     string folder = "Books/Covers/";
-                    bookModl.CoverImgUrl =  await UploadImg(folder, bookModl.CoverImg);
+                    bookModl.CoverImgUrl =  await UploadFile(folder, bookModl.CoverImg);
                 }
+
+                //-------------Gallery Images Upload-----------------//
                 if (bookModl.GalleryFiles != null)
                 {
                     string folder = "Books/Gallery/";
@@ -81,7 +92,7 @@ namespace ASPNET_Core_Books_Demo.Controllers
                         var galleryImg = new GalleryModel()
                         {
                             Name = img.FileName,
-                            URL = await UploadImg(folder, img)
+                            URL = await UploadFile(folder, img)
                         };
                         bookModl.Gallery.Add(galleryImg);
                     }
@@ -92,12 +103,11 @@ namespace ASPNET_Core_Books_Demo.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { IsSuccess = true, bookId = id });
                 }
             }
-            ViewBag.languages = new SelectList(await _langRepo.GetLanguages(), "Id", "Name");
             //ViewBag.IsSuccess = false;
             return View();
         }
 
-        private async Task<string> UploadImg(string folderPath, IFormFile file)
+        private async Task<string> UploadFile(string folderPath, IFormFile file)
         {
             
             folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;

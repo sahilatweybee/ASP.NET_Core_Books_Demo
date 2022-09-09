@@ -9,19 +9,7 @@
     <div class="row">
         @foreach (var book in Model)
         {
-            <div class="col-md-4">
-                <img src="@book.CoverImgUrl" class="img-thumbnail" />
-                <div class="card-body">
-                    <h3 class="card-ti tle">@book.Name</h3>
-                    <p class="card-text">@book.Description</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a asp-route="BookDetailsRoute" asp-route-id="@book.Id" class="btn btn-sm btn-outline-secondary">View Details</a>
-                        </div>
-                        <small class="text-muted">@book.Author</small>
-                    </div>
-                </div>
-            </div>
+            <partial name="_BookThumbnail" model="@book" />
         }
 
     </div>

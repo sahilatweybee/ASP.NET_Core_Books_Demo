@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ASPNET_Core_Books_Demo.Repository
 {
-    public class LanguageRepo
+    public class LanguageRepo : ILanguageRepository
     {
         private readonly BookStoreContext _context = null;
 
