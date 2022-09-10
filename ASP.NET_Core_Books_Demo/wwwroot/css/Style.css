@@ -2,40 +2,16 @@
 body {
 }
 
-.logo{
-    height: 300px;
-    width:600px;
-}
-
-.jumbotron{
-    background: none;
-}
-
-footer{
-    position:absolute;
+footer {
+    position: absolute;
     bottom: 0;
     width: 100%;
+    height: 1%;
     white-space: nowrap;
     line-height: 60px;
 }
+
 html {
     position: relative;
-    font-size: 14px; 
     min-height: 100%;
-}
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-a {
-    color: #0366d6;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
 }

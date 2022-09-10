@@ -55,7 +55,7 @@ namespace ASPNET_Core_Books_Demo.Controllers
             return null;
         }
 
-        [Route("~/AddNewBook/")]
+        
         public ViewResult AddNewBook(bool IsSuccess=false, int bookId = 0)
         {
             ViewBag.BookId = bookId;
@@ -63,18 +63,11 @@ namespace ASPNET_Core_Books_Demo.Controllers
             return View();
         }
 
-        [HttpPost("~/AddNewBook/")]
+        [HttpPost]
         public async Task<IActionResult> AddNewBook(BookModel bookModl) 
         {
             if (ModelState.IsValid)
             {
-                //-------------File Upload--------------------------//
-                if (bookModl.BookPdf != null)
-                {
-                    string folder = "Books/Pdf/";
-                    bookModl.BookPdfUrl = await UploadFile(folder, bookModl.BookPdf);
-                }
-
                 //-------------Cover Image Upload--------------------//
                 if (bookModl.CoverImg != null)
                 {
@@ -97,14 +90,21 @@ namespace ASPNET_Core_Books_Demo.Controllers
                         bookModl.Gallery.Add(galleryImg);
                     }
                 }
+
+                //-------------File Upload--------------------------//
+                if (bookModl.BookPdf != null)
+                {
+                    string folder = "Books/Pdf/";
+                    bookModl.BookPdfUrl = await UploadFile(folder, bookModl.BookPdf);
+                }
+
                 int id = await _bookRepo.addNewBook(bookModl);
-                if(id > 0)
+                if (id > 0)
                 {
                     return RedirectToAction(nameof(AddNewBook), new { IsSuccess = true, bookId = id });
                 }
             }
-            //ViewBag.IsSuccess = false;
-            return View();
+            return View(bookModl);
         }
 
         private async Task<string> UploadFile(string folderPath, IFormFile file)

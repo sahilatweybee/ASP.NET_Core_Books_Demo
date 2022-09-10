@@ -11,18 +11,18 @@
     @if (ViewBag.IsSuccess == true)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Book Added Succesfully!</strong> <a asp-action="GetBook" asp-controller="Book" asp-route-id="@ViewBag.BookId">Click Here</a> to View Details
-            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Congratulations</strong> You added new book successfully.<br />
+            Cleck <a asp-controller="Book" asp-action="GetBook" asp-route-id="@ViewBag.BookId">here</a> to view the details
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            </button>
         </div>
     }
-    <form asp-action="AddNewBook"
-          enctype="multipart/form-data"
-          asp-controller="Book"
-          method="post"
-          data-ajax-success="OnSuccess"
-          data-ajax="true"
-          data-ajax-complete="OnComplete"
-          data-ajax-loading="#Loader">
+<form asp-action="AddNewBook"
+      enctype="multipart/form-data"
+      asp-controller="Book"
+      method="post">
+        <!--data-ajax="false"
+        data-ajax-complete="OnComplete"-->
 
         <div class="form-group row">
             <label asp-for="Name" class="col-sm-2 my-2 col-form-label"></label>
@@ -109,3 +109,10 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <script>
+        function OnComplete() {
+            //ert("Action Completed");
+        }
+    </script>
+}
